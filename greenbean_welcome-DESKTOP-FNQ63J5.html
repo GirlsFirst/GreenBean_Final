@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GreenBean</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	
+	
+    <!-- Include the compiled Ratchet CSS -->
+
+	<link rel="stylesheet" type="text/css" href="greenbean_welcome_style.css">
+	<script src = "greenbean_welcome_script.js">
+	</script>
+	
+	
+	<script>
+	$(document).ready(function() {
+
+	//ajax call for loading data and then appending it
+	$.ajax({
+      url:JSONURL,
+      success: function(data){
+      	//data is all the JSON that is returned from the AJAX call
+          appendData(data);
+      }
+  })
+
+	//on submission of the html form, get the data
+	$(".myFormi").submit(function(event){
+		event.preventDefault();
+		var data = $(this).serialize();
+		console.log(data)
+
+		$.ajax({
+    	url: "https://script.google.com/macros/s/AKfycbwfwkxrAc6s1QktfEG9kdI6znYYFR2C9SU-6Nxqj7cvX3suXbU/exec",
+      type: "POST",
+		  data: data
+  	});
+	})
+
+
+
+})
+
+//global variable for url needed to access Google Spreadsheet data as JSON
+//https://docs.google.com/spreadsheets/d/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/edit?usp=sharing
+//https://docs.google.com/spreadsheets/d/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/pubhtml
+var JSONURL = 'https://spreadsheets.google.com/feeds/list/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/1/public/basic?alt=json';
+
+
+function appendData(data){
+	var rows = [];
+    var cells = data.feed.entry;
+    
+    for (var i = 0; i < cells.length; i++){
+        var rowObj = {};
+        rowObj.timestamp = cells[i].title.$t;
+        var rowCols = cells[i].content.$t.split(',');
+        for (var j = 0; j < rowCols.length; j++){
+            var keyVal = rowCols[j].split(':');
+            rowObj[keyVal[0].trim()] = keyVal[1].trim();
+        }
+        rows.push(rowObj);
+    }
+
+
+    //code to parse through rows array and grab the data you need, and append it 
+    for (var i = 0; i < rows.length; i++) {
+    	//rename rows[i] just to make sure I know what I am working with
+    	//var unicornObject = rows[i];
+		
+		var mostRecent = rows[rows.length-1];
+		
+		
+
+    	//turn all of the data into html strings
+    	//var headerName = "<h3>" + unicornObject.username + "</h3>"
+		var headerName2 = "<h3>" + mostRecent.age + "</h3>"
+
+    	//add all the strings together into an html string that gets appended to a div that already exists on my HTML
+    	//$("#info").append(headerName)
+		$("#info").append(headerName2)
+		
+		
+	
+}
+
+
+
+
+function drawChart(rows){
+    
+    console.log(rows);
+    
+    for (var i = 0; i < rows.length; i++){
+        rows[i].timestamp = new Date(rows[i].timestamp);
+    }
+    
+    MG.data_graphic({
+      title: "Odometer Reading vs. Date",
+      data: rows,
+      width: 400,
+      height: 250,
+      target: "#chart",
+      x_accessor: "timestamp",
+      y_accessor: "odometer",
+      interpolate: "monotone"
+    });
+}
+
+
+$(document).ready(function(){
+    
+    $.ajax({
+        url:JSONURL,
+        success: function(data){
+            callback(data);
+        }
+    });
+
+})
+
+
+
+</script>
+	
+  </head>
+  
+  
+  
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+
+
+
+
+
+	
+	<div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <li><a href="#" target="_blank">Home</a></li>
+	  <li><a href="info_page.html" target="_blank">Info</a></li>
+	  <li><a href="greenbean_about.html" target="_blank">About</a></li>
+	  <li><a href="index.html" target="_blank">Sign Out</a></li>
+
+	</div>
+	
+	<div class="bar">
+	<header class="bar bar-nav">
+		<h1 class="title"><span class="pull-left" onclick="openNav()"><!--&#9776--><img src="icon.png" alt=":"></span><img src="mini_logo.png" alt="GreenBean">
+		</h1>
+	</header>
+	</div>
+		<!--<div><img src="C:\Users\GirlsWhoCode\OneDrive\EcoProject\GreenBean%20Final%20Version\BeanstalkComplete.png" height = "1000px" width = "600px"></div> -->
+
+	<div id="center" align="center">
+	<div id="Current Bean Scores">
+	</div>
+	<br />
+	<div id="graphDiv2"></div>
+	<!--[if IE]><script src="excanvas.js"></script><![endif]-->
+	<script src="html5-canvas-bar-graph.js"></script>
+	<script>(function () {
+	
+		function createCanvas(divName) {
+			var div =document.getElementById(divName);
+			var canvas = document.createElement('canvas');
+			div.appendChild(canvas);
+			if (typeof G_vmlCanvasManager != 'undefined') {
+				canvas = G_vmlCanvasManager.initElement(canvas);
+			}	
+			var ctx = canvas.getContext("2d");
+			return ctx;
+		}
+		
+		var ctx = createCanvas("Current Bean Scores");
+		
+		var graph = new BarGraph(ctx);
+		graph.maxValue = 30;
+		graph.margin = 2
+		graph.height = 250;
+		
+		graph.colors = ["#A000FD", "#0069FD", "#00FDBA"];
+		graph.xAxisLabelArr = ["Water", "CO2", "Waste"];
+		setInterval(function () {
+			graph.update([18, 22, 29]);
+		}, 1000);
+		
+		<!--document.write(sessionStorage.getItem("name"));-->
+		
+	}());</script>
+	
+	
+		<div class="container">
+			<div class="well" style="font-size:20px">Current Bean Scores</div>
+			<button type="button" class="btn btn-primary btn-lg">Update Info</button> <br> <br>
+			<p style="text-align:center; font-size:14px">Your Bean Scores tell you what your environmental footprint is! 
+			If your Bean Scores are High, that means we recommend you
+			make just a few changes to reduce your footprint. If your Bean Scores are Low, that means you are doing a fantastic 
+			job of helping the earth!</p> <br> <br>
+			<p> <img src="http://orig13.deviantart.net/fc04/f/2012/238/2/7/modern_environment_by_mozzila_111-d5cgv3z.jpg" alt=" "></p>
+		</div>
+	
+	
+	</div>
+	
+	
+	<div class="container-fluid bg-2 text-center">
+	<h3  class="margin" id="names"></h3>
+	<section id="info"></section>
+
+	</div>
+		
+	<!-- Use any element to open the sidenav -->
+	
+	<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+	<!--<div id="main">
+	  ...
+	</div>-->
+	
+	<!--
+	<head class="bar bar-nav">
+	<button class="btn pull-left">
+		Left
+	  </button>
+	  <button class="btn pull-right">
+		Right
+	  </button>
+	  <div class="segmented-control">
+		<a class="control-item active">One</a>
+		<a class="control-item">Two</a>
+		<a class="control-item">Three</a>
+	  </div>
+	</head> 
+	-->
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	<!--<br><br><br>	<div id="help"><img src="C:\Users\GirlsWhoCode\OneDrive\EcoProject\GreenBean%20Final%20Version\BeanstalkComplete.png" height = "1000" width = "600"></div>-->
+	
+
+  </body>
+</html>
+		

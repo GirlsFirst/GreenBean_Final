@@ -1,0 +1,13 @@
+body {
+	padding-left: 20px;
+	padding-top: 25px;
+	background: rgb(118,184,82);
+	font-family: "Roboto", sans-serif;
+}
+
+h1 {
+	color: #000000;
+	text-align: left;
+	font-family: "Segoe Print";
+	font-size: 1.75em
+}

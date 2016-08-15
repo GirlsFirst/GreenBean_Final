@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+		<link rel="stylesheet" type="text/css" href="greenbean_createaccount.css">
+		
+		<script src = "greenbean_createaccount.js">
+		</script>
+
+	<script src="http://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+	<script>
+	$(document).ready(function() {
+
+	//ajax call for loading data and then appending it
+	$.ajax({
+      url:JSONURL,
+      success: function(data){
+      	//data is all the JSON that is returned from the AJAX call
+          readDataAndAppend(data);
+      }
+  })
+
+	//on submission of the html form, get the data
+	$(".myFormi").submit(function(event){
+		event.preventDefault();
+		var data = $(this).serialize();
+		console.log(data)
+
+		$.ajax({
+    	url: "https://script.google.com/macros/s/AKfycbwfwkxrAc6s1QktfEG9kdI6znYYFR2C9SU-6Nxqj7cvX3suXbU/exec",
+      type: "POST",
+		  data: data
+  	});
+	})
+
+
+
+})
+
+//global variable for url needed to access Google Spreadsheet data as JSON
+//https://docs.google.com/spreadsheets/d/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/edit?usp=sharing
+//https://docs.google.com/spreadsheets/d/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/pubhtml
+var JSONURL = 'https://spreadsheets.google.com/feeds/list/1kY4Mat9Tl9yctNeXbwA73GHtQeI5sWIXcZIW298yMLE/1/public/basic?alt=json';
+
+
+function readDataAndAppend(data){
+	var rows = [];
+    var cells = data.feed.entry;
+    
+    for (var i = 0; i < cells.length; i++){
+        var rowObj = {};
+        rowObj.timestamp = cells[i].title.$t;
+        var rowCols = cells[i].content.$t.split(',');
+        for (var j = 0; j < rowCols.length; j++){
+            var keyVal = rowCols[j].split(':');
+            rowObj[keyVal[0].trim()] = keyVal[1].trim();
+        }
+        rows.push(rowObj);
+    }
+
+	sessionStorage.setItem("name", "GreenBean"); 
+	
+	//saves to the database, key/value
+    //code to parse through rows array and grab the data you need, and append it 
+    for (var i = 0; i < rows.length; i++) {
+    	//rename rows[i] just to make sure I know what I am working with
+    	var footprint = rows[i];
+		
+		<!--var mostRecent = rows[rows.length-1];-->
+		
+		
+
+    	//turn all of the data into html strings
+    	var headerName = "<h3>" + footprint.username + "</h3>"
+    	var colorText = "<p>" + footprint.password + "</p>"
+    	var magicPowerText = "<p>" + footprint.commute + "</p>"
+		var gah = "<p>" + footprint.car_freq + "</p>"
+    	var forga = "<p>" + footprint.car_type + "</p>"
+		var boosa = "<p>" + footprint.bus + "</p>"
+		var noobs = "<p>" + footprint.pla_freq + "</p>"
+    	var dlob = "<p>" + footprint.shower + "</p>"
+		var shorb = "<p>" + footprint.clothing + "</p>"
+    	var skg = "<p>" + footprint.eating_habits + "</p>"
+		var ahhhh= "<p>" + footprint.local + "</p>"
+		var narga = "<p>" + footprint.housing + "</p>"
+		var paper= "<p>" + footprint.rooms + "</p>"
+    	var sigglewump = "<p>" + footprint.people + "</p>"
+		var sindog = "<p>" + footprint.electronics + "</p>"
+		var skrag = "<p>" + footprint.pets + "</p>"
+		var poo = "<p>" + footprint.heat + "</p>"
+		var fooo = "<p>" + footprint.items + "</p>"
+		var phoo = "<p>" + footprint.things + "</p>"
+		var score_total = "<p> This is the Total Score: " + footprint.totalscore + "</p>"
+		}
+
+    	//add all the strings together into an html string that gets appended to a div that already exists on my HTML
+    	//$("#info").append(headerName)
+		//$("#info").append(headerName2)
+		
+		
+	
+		}
+
+
+
+
+/*function drawChart(rows){
+    
+    console.log(rows);
+    
+    for (var i = 0; i < rows.length; i++){
+        rows[i].timestamp = new Date(rows[i].timestamp);
+    }
+    
+    MG.data_graphic({
+      title: "Odometer Reading vs. Date",
+      data: rows,
+      width: 400,
+      height: 250,
+      target: "#chart",
+      x_accessor: "timestamp",
+      y_accessor: "odometer",
+      interpolate: "monotone"
+    });
+}
+
+
+$(document).ready(function(){
+    
+    $.ajax({
+        url:JSONURL,
+        success: function(data){
+            callback(data);
+        }
+    });
+
+})*/
+
+
+
+</script>
+	</head>
+
+	
+	<body>
+
+
+	
+	<!--div id="chart">
+	</div>-->
+
+
+	<section>
+	<h1>Create your GreenBean account:</h1>
+	
+	<form name="myForm" class="myFormi">
+	  Username:<br>
+	  <input id="new_user" type="text" name="username" value=""><br><br>
+	  Password:<br>
+	  <input type="text" name="password"><br><br>
+	  <!--<input type="submit" value="Submit"> <br>
+	  <button type="button"><a href="greenbean_form.html">Continue</a></button> -->
+
+	<h1>Tell us about yourself!</h1>
+	
+	
+	  What is your age range?<br>
+	  <input type="radio" name="age" value="0">0-20<br>
+	  <input type="radio" name="age" value="0">21-49<br>
+	  <input type="radio" name="age" value="0">50+<br><br>
+	  How long is your total daily commute?<br>
+	  <input type="radio" name="commute" value="0">0-1 hour<br>
+	  <input type="radio" name="commute" value="1">1-2 hours<br>
+	  <input type="radio" name="commute" value="2">3+ hours<br><br>
+	  How often do you use a car?<br>
+	  <input type="radio" name="car_freq" value="0">0-2 times a week<br>
+	  <input type="radio" name="car_freq" value="1">most days<br>
+	  <input type="radio" name="car_freq" value="2">every day<br><br>
+	  What type of car do you drive? (Check all that apply)<br>
+	  <input id="car1" type="checkbox" name="car_type" value="0">not applicable<br>
+	  <input id="car2" type="checkbox" name="car_type" value="1">electric car<br>
+	  <input id="car3" type="checkbox" name="car_type" value="2">hybrid car<br>
+	  <input id="car4" type="checkbox" name="car_type" value="3">gasoline car<br><br>
+	  How many hours do you spend riding the bus each week?<br>
+	  <input type="radio" name="bus"value="0">0-1 hour<br>
+	  <input type="radio" name="bus"value="1">2-4 hours<br>
+	  <input type="radio" name="bus"value="2">5+<br><br>
+	  How many flights do you take per year?<br>
+	  <input type="radio" name="pla_freq" value="0">0-1<br>
+	  <input type="radio" name="pla_freq" value="1">2-3<br>
+	  <input type="radio" name="pla_freq" value="2">4+<br><br>
+	  How often do you shower?<br>
+	  <input type="radio" name="shower" value="3">some days<br>
+      <input type="radio" name="shower" value="2">most days<br>
+	  <input type="radio" name="shower" value="1">at least once a day<br><br>
+	  How many articles of NEW clothing do you typically purchase in a month?<br>
+	  <input type="radio" name="clothing" value="0">0-1<br>
+	  <input type="radio" name="clothing" value="1">2-3<br>
+	  <input type="radio" name="clothing" value="2">4+<br><br>
+	  Choose the option that best matches your diet.<br>
+	  <input type="radio" name="eating_habits" value="0">vegan<br>
+	  <input type="radio" name="eating_habits" value="1">vegetarian/light meat eater (poultry and fish)<br>
+	  <input type="radio" name="eating_habits" value="2">meat eater(beef, pork, poultry and fish)<br><br>
+	  How much of your food is locally sourced?<br>
+	  <input type='radio' name='local' value="0">all/most of it<br>
+	  <input type='radio' name='local' value="1">some of it<br>
+	  <input type='radio' name='local' value="2">little to none of it<br><br>
+	  Which best describes your home?<br>
+	  <input type="radio" name="housing" value="1">apartment, flat or loft<br>
+	  <input type="radio" name="housing" value="2">townhouse, mobile home<br>
+	  <input type="radio" name="housing" value="3">house<br><br>
+	  How many bedrooms are in your home?<br>
+	  <input type="radio" name="rooms"value="1">1-2<br>
+	  <input type="radio" name="rooms"value="2">3-4<br>
+	  <input type="radio" name="rooms"value="3">5+<br><br>
+	  How many people live in your household?<br>
+	  <input type="radio" name="people"value="1">1-2<br>
+	  <input type="radio" name="people"value="2">3-4<br>
+	  <input type='radio' name='people'value="3">5+<br><br>
+	  How much do you spend on pets each month?<br>
+	  <input type="radio" name="pets" value="0">$0-19<br>
+	  <input type="radio" name="pets" value="1">$20-49<br>
+	  <input type="radio" name="pets" value="2">$50+<br><br>
+	  Which of the following do you use at least once a week? (Check all that apply)<br>
+	  <input id="fridge" type="checkbox" name="electronics" value="3">refrigerator<br>
+	  <input id="bulb" type="checkbox" name="electronics" value="3">light bulbs<br>
+	  <input id="phone" type="checkbox" name="electronics" value="1">cell phone<br>
+	  <input id="comp" type="checkbox" name="electronics" value="2">computer<br>
+	  <input id="micro" type="checkbox" name="electronics" value="1">microwave<br>
+	  <input id="ove" type="checkbox" name="electronics" value="2">oven<br>
+	  <input id="stove" type="checkbox" name="electronics" value="3">electric stove<br>
+	  <input id="wash" type="checkbox" name="electronics" value="3">washing machine/dryer<br>
+	  <input id="teevee" type="checkbox" name="electronics" value="2">TV<br><br>     
+	  How do you heat your home? (Check all that apply) <br>
+	  <input id="sustain" type="checkbox" name="heat" value="0">sustainable Energy (solar, wind, etc.)<br>
+	  <input id="gas" type="checkbox" name="heat" value="2">gas<br>
+	  <input id="elec" type="checkbox" name="heat" value="2">electricity<br>
+	  <input id="other" type="checkbox" name="heat" value="1">other<br><br>
+	  Which of the following items do you recycle? (Check all that apply)<br>
+	  <input id="soft" type="checkbox" name='items' value="0">soft plastics (cling film, wrappers, zip bags, etc.)<br>
+	  <input id="hard" type="checkbox" name='items' value="0">hard plastics (milk cartons, bottles, plastic take out containers, etc.)<br>
+	  <input id="paper" type="checkbox" name='items' value="0">paper products (paper, envelopes, non food soiled cardboard, etc.)<br><br>
+	  Do you compost food scraps and food soiled cardboard?<br>
+	  <input type='radio' name='things' value="0">yes<br>
+	  <input type='radio' name='things' value="3">no<br><br>
+	  
+
+
+	  <input type="text" style="display:none;" name="totalscore" id="scorio">
+
+	  
+	<!--<script src="C:\Users\GirlsWhoCode\OneDrive\EcoProject\GreenBean Final Version\quiz_calc.js"></script>-->
+	<script>
+
+
+function myFunctiono() {
+		var carbon_score = 0;
+		var water_score = 0;
+
+		var commute = document.querySelector('input[name = "commute"]:checked').value;
+		var car_freq = document.querySelector('input[name = "car_freq"]:checked').value;
+		//(check) car_type
+		var bus = document.querySelector('input[name = "bus"]:checked').value;
+		var pla_freq = document.querySelector('input[name = "pla_freq"]:checked').value;
+		var shower = document.querySelector('input[name = "shower"]:checked').value;
+		var clothing = document.querySelector('input[name = "clothing"]:checked').value;
+		var eating_habits = document.querySelector('input[name = "eating_habits"]:checked').value;
+		var local = document.querySelector('input[name = "local"]:checked').value;
+		var housing = document.querySelector('input[name = "housing"]:checked').value;
+		var rooms = document.querySelector('input[name = "rooms"]:checked').value;
+		var people = document.querySelector('input[name = "people"]:checked').value;
+		var pets = document.querySelector('input[name = "pets"]:checked').value;
+		//(check) electronics
+		//(check) heat
+		//(check) items
+		var things = document.querySelector('input[name = "things"]:checked').value;
+		
+
+		
+		//commute
+		if (commute = 0) {
+		   carbon_score+= 0;
+		}
+
+		if (commute = 1) {
+			carbon_score++;
+		}
+
+		if (commute = 2) {
+		   carbon_score+= 2;
+		}
+
+
+
+		//car_freq
+		if (car_freq = 0) {
+			 carbon_score+= 0;
+		}
+
+		if (car_freq = 1) {
+			carbon_score++;
+		}
+
+		if (car_freq = 2) {
+			carbon_score+= 2;
+		}
+
+
+		//car_type
+		if (document.getElementById("car1").checked) {
+			carbon_score +=0;
+		}
+
+		if (document.getElementById("car2").checked) {
+			carbon_score++;
+		}
+
+		if (document.getElementById("car3").checked) {
+			carbon_score+= 2;
+		}
+		if (document.getElementById("car4").checked) {
+			carbon_score+= 3;
+		}
+		
+		
+		//bus
+		if (bus = 0) {
+			 carbon_score+= 0;
+		}
+
+		if (bus = 1) {
+			carbon_score++;
+		}
+
+		if (bus = 2) {
+			carbon_score+= 2;
+		}
+
+
+
+
+		//pla_freq
+		if (plaf = 0) {
+			 carbon_score+= 0;
+		}
+
+		if (plaf = 1) {
+			carbon_score++;
+		}
+
+		if (plaf = 2) {
+			carbon_score+= 2;
+		}
+
+
+		//shower
+		if (shower = 1) {
+			water_score++;
+		}
+		if (shower = 2) {
+			water_score+= 2;
+		}
+		if (shower = 3) {
+			water_score+= 3;
+		}
+
+
+		//clothing
+		if (clothing = 0) {
+			carbon_score+= 0;
+		}
+		if (clothing = 1) {
+			carbon_score++;
+		}
+		if (clothing = 2) {
+			carbon_score+= 2;
+		}
+
+
+		//eating_habits
+		if (eating_habits = 0) {
+			 water_score+= 0;
+		}
+
+		if (eating_habits = 1) {
+			water_score++;
+		}
+
+		if (eating_habits = 2) {
+			water_score+= 2;
+		}
+		
+		
+		//local
+		if (local = 0) {
+			 water_score+= 0;
+		}
+
+		if (local = 1) {
+			water_score++;
+		}
+
+		if (local = 2) {
+			water_score+= 2;
+		}
+
+
+		//housing
+		if (housing = 1) {
+			carbon_score++;
+		}
+
+		if (housing = 2) {
+			carbon_score+= 2;
+		}
+
+		if (housing = 3) {
+			carbon_score+= 3;
+		}
+		
+		
+		//rooms
+		if (rooms = 1) {
+			carbon_score++;
+		}
+
+		if (rooms = 2) {
+			carbon_score+= 2;
+		}
+
+		if (rooms = 3) {
+			carbon_score+= 3;
+		}
+		
+		
+		//people
+		if (people = 1) {
+			carbon_score++;
+		}
+
+		if (people = 2) {
+			carbon_score+= 2;
+		}
+
+		if (people = 3) {
+			carbon_score+= 3;
+		}
+		
+		
+		//pets
+		if (pets = 0) {
+			 carbon_score+= 0;
+		}
+
+		if (pets = 1) {
+			carbon_score++;
+		}
+
+		if (pets = 2) {
+			carbon_score+= 2;
+		}
+
+
+
+		//electronics
+		if (document.getElementById("fridge").checked) {
+			carbon_score+= 3;
+		}
+
+		if (document.getElementById("bulb").checked) {
+			carbon_score+= 3;
+		}
+
+		if (document.getElementById("phone").checked) {
+			carbon_score++;
+		}
+		if (document.getElementById("comp").checked) {
+			carbon_score+= 2;
+		}
+		if (document.getElementById("micro").checked) {
+			carbon_score++;
+		}
+		if (document.getElementById("ove").checked) {
+			carbon_score+= 2;
+		}
+		if (document.getElementById("stove").checked) {
+			carbon_score+= 3;
+		}
+		if (document.getElementById("wash").checked) {
+			water_score+= 2;
+		}
+		if (document.getElementById("teevee").checked) {
+			carbon_score+= 2;
+		}
+		
+		
+		//heat
+		if (document.getElementById("sustain").checked) {
+			carbon_score+= 0;
+		}
+		if (document.getElementById("gas").checked) {
+			carbon_score+= 2;
+		}
+		if (document.getElementById("elec").checked) {
+			carbon_score+= 2;
+		}
+		if (document.getElementById("other").checked) {
+			carbon_score+= 1;
+		}
+		
+		
+		//items
+		if (document.getElementById("soft").checked) {
+			carbon_score+= 0;
+		}
+		if (document.getElementById("hard").checked) {
+			carbon_score+= 0;
+		}
+		if (document.getElementById("paper").checked) {
+			carbon_score+= 0;
+		}
+		
+		
+		
+		//things
+		if (things = 0) {
+			carbon_score+= 0;
+		}
+		
+		if (things = 3) {
+			carbon_score+= 3;
+		}
+
+
+		var totalscore = carbon_score + water_score;
+		document.getElementById("scorio").value = totalscore;
+	}
+
+
+	</script>
+
+	  
+
+		
+	  <input type="submit" value="Submit" onclick="myFunctiono()"></button> <br>
+	 
+	  
+
+
+	  <!-- Second Container -->
+<!--<div class="container-fluid bg-2 text-center">
+	<h3  class="margin" id="names"></h3>
+	<section id="info"></section>
+
+</div>-->
+
+<!-- Third Container -->
+
+
+
+	</form> 
+	
+	
+	<section style="display: none;" id="info">
+	<br>
+	<h4>Your account has been created! <br>
+	You are logged in as: </h4>
+	</section>
+
+
+<div id="username_display">	
+	<br>
+	<p id = "userdisplay"><h3></h3></p>
+	<br>
+</div>
+	
+	<section id="info2">
+	<button type="button"><a href="greenbean_welcome.html">Continue</a></button><br><br>
+	</section>
+	
+
+		
+	</section>
+
+	</body>
+	
+
+		
+</html>

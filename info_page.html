@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+  
+  <link rel="stylesheet" type="text/css" href="greenbean_info_style.css">
+  <script src = "greenbean_welcome_script.js">
+  </script>
+  
+</head>
+<body>
+
+<!--
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Portfolio</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>-->
+
+<div id="mySidenav" class="sidenav">
+	 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	 <li><a href="greenbean_welcome.html" target="_blank">Home</a></li>
+	 <li><a href="#" target="_blank">Info</a></li>
+	 <li><a href="greenbean_about.html" target="_blank">About</a></li>
+	 <li><a href="index.html" target="_blank">Sign Out</a></li>
+
+</div>
+	
+<div class="bar">
+<header class="bar bar-nav">
+	<h1 class="title"><span class="pull-left" onclick="openNav()"><img src="icon.png" alt=":" class="goob"></span><img src="mini_logo.png" alt="GreenBean" class="goob">
+	</h1>
+</header>
+</div>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Information</h1>
+    <br>
+    <p><font size="4">Some facts about the environment...</font></p>
+  </div>
+</div>
+  
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+    <div class="col-sm-3">
+	  <h2>Water</h2>
+	  <br>
+	  <img src="Water vortex.jpg" alt="Image" class="picture">
+	  <br>
+      <p><font size="4">
+	  We are in the midst of a global water crisis!!! 
+	  During the 20th century, the demand for water increased sixfold due to these factors: population growth, industrialization, and urbanization. 
+	  Today, 1 in every 10 people do not have access to safe drinking water.
+	  Contaminated drinking water leads to deadly water-borne diseases, which kill more people every year than all forms of violence in the world. 
+	  The World Health Organization estimates that by 2025, half the world's population will be living in water-stressed areas.
+	  <br>70% of our world is covered in water, but only 2.5% of this is freshwater.
+	  Out of this, just 1% of the freshwater is easily accessible, because most of it is stored in glaciers and snowfields.
+	  Extracting surface water causes coastal habitats for wildlife to disappear, 
+	  and overdrawing groundwater destabilizes land and allows salt water to seep into freshwater aquifers.
+	  A desalination process to convert sea water into fresh water is both very expensive and energy inefficient, so we must use Earth's limited freshwater resources wisely!
+		<br>Here are some ways to conserve water:<br>
+		<ul style="text-align:left">
+		<li>Turn off the tap when you are not using it</li>
+		<li>Limit your showers to 10 minutes or less</li>
+		<li>Switch to a low-flow showerhead</li>
+		<li>Cut some meat out of your diet, it takes a lot of water to raise an animal!</li>
+		<li>Avoid watering your lawn during the summer</li>
+		<li>Install a cistern to collect rainwater to use for things such as flushing toilets</li>
+		<br><p>Fun fact: The average hamburger costs about 660 gallons of water to produce.</p>
+		</ul>
+		
+	  </font></p>
+	  <br>
+    </div>
+	
+    <div class="col-sm-3"> 
+	  <h2>CO2 Emissions</h2>
+	  <br>
+	  <img src="CarbonEmissions.jpg" class="picture" style="width:100%" style="height:100%" alt="Image">
+	  <br>
+      <p><font size="4">Fossil fuels are the main way that we power our transportation vehicles. Buses, planes, and cars all use massive amounts of
+	  gas and diesel. When these fossil fuels are burned, they emit many pollutants into the atmosphere, including carbon dioxide.
+	  <br>   Carbon dioxide (CO2) is a greenhouse gas which traps heat in the Earth's atmosphere. 
+	  This temperature fluctuation increases the frequency and severity of forest fires, drought, and tropical diseases.
+		Global warming also causes desertification in drier areas, an increased melting of glaciers and polar ice caps, and sea level rise in coastal regions, which displaces people living by the water.
+		In addition, CO2 in the atmosphere is absorbed by oceans, making them more acidic which threatens coral reefs and marine biodiversity.
+		<br>Here are some ways to reduce your CO2 emissions:<br>
+	  <ul style="text-align:left">
+	  <li>Walk or bike to nearby destinations</li>
+	  <li>If you can afford it, switch to a hybrid or electric car</li>
+	  <li>Take the bus instead of driving</li>
+	  <li>Take more local vacations instead of flying places</li>
+	  <li>Carpool whenever possible</li>
+	  <br><p>Fun fact: The USA is the second biggest producer of CO2 in the world.</p>
+	  </ul>
+	 
+	  <br>
+    </div>
+	
+    <div class="col-sm-3">
+	  <h2>Waste</h2>
+	  <br>
+	  <img src="trash.png" class="picture" style="width:100%" alt="Image">
+	  <br>
+      <p><font size="4">The average American produces 4.4 pounds of waste per day. 
+	  Only about one-third of this is composted or recycled, and half of it gets stored in a landfill. 
+	  Much of the rest ends up in the ocean. The Great Pacific Garbage Patch, roughly twice the size of Texas, is floating in the Pacific Ocean and is expected to double in size in the next ten years.
+	  Fish, birds, and other wildlife animals often mistake plastic for food, and ingest it. 
+	  Solid waste in landfills can take thousands of years to decompose, and trash incineration releases toxic chemicals into the atmosphere.
+	  Hazardous waste from factories also contain toxic organic compounds and heavy metals which have detrimental effects on humans, plants, and animals.
+	  <br>The easiest and most effective way to reduce your waste generation is to reduce the amount of stuff you buy.
+		You should also try to use reusable items such as reusable shopping bags, reusable food containers, and cloth napkins. 
+	  Lastly, compost and recycle whenever possible. 
+	  <br>These are some things that you can recycle: <br><br>
+	  <ul style="text-align:left"> 
+	  <li>Aluminum cans (soda)</li> 
+	  <li>Steel cans (soup, canned goods)</li>
+	  <li>Paper (cardboard, newspapers)</li> 
+	  <li>Glass (NOT ceramics or mirrors)</li> 
+	  <li>Plastics that have the recycle sign on the bottom</li></p>
+	  <br><p>Fun fact: The biggest sources of municipal solid waste (household waste) are paper, food scraps, yard trimmings, and plastic.</p>
+	  </ul>
+	  <p style="text-align:center"></font></p>
+	  <br>
+    </div
+	
+  </div>
+</div><br>
+
+<!-- <div class="container-fluid bg-3 text-center">    
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Some text..</p>
+      <img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3"> 
+      <p>Some text..</p>
+      <img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3"> 
+      <p>Some text..</p>
+      <img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <p>Some text..</p>
+      <img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+    </div>
+  </div>   
+</div> --> 
+
+
+<footer class="container-fluid text-center">
+  <p>Take small steps everyday. You are important and you can make a difference!</p>
+</footer>
+
+</body>
+</html>
